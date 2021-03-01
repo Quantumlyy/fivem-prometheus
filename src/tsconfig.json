@@ -5,7 +5,12 @@
 		"rootDir": ".",
 		"baseUrl": ".",
 		"composite": true,
-		"declaration": true
+		"declaration": true,
+		"types": [
+			"@citizenfx/server",
+			"prom-client",
+			"@types/node"
+		]
 	},
 	"include": ["."]
 }
