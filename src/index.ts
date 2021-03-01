@@ -1,18 +1,19 @@
 import prometheus from 'prom-client';
 
 const prometheusTimeout = GetConvarInt('prometheus_timeout', 5000);
+const prefix = GetConvar('prometheus_prefix', 'fxs_');
 
-const playerCount = new prometheus.Gauge({ name: 'fxs_player_count', help: 'Number of connected players.' });
-const playerConnections = new prometheus.Counter({ name: 'fxs_player_connections', help: 'Number of player connections.' });
-const playerDisconnections = new prometheus.Counter({ name: 'fxs_player_disconnections', help: 'Number of player disconnections.' });
-const averageLatency = new prometheus.Gauge({ name: 'fxs_average_player_latency', help: 'Average player latency.' });
+const playerCount = new prometheus.Gauge({ name: `${prefix}player_count`, help: 'Number of connected players.' });
+const playerConnections = new prometheus.Counter({ name: `${prefix}player_connections`, help: 'Number of player connections.' });
+const playerDisconnections = new prometheus.Counter({ name: `${prefix}player_disconnections`, help: 'Number of player disconnections.' });
+const averageLatency = new prometheus.Gauge({ name: `${prefix}average_player_latency`, help: 'Average player latency.' });
 const latencyHistogram = new prometheus.Histogram({
-	name: 'fxs_players_latency',
+	name: `${prefix}players_latency`,
 	help: 'Players latency.',
 	buckets: [10, 20, 50, 70, 100, 120, 150, 160, 200]
 });
-const minPlayerPing = new prometheus.Gauge({ name: 'fxs_min_player_ping', help: 'Minimum player ping.' });
-const maxPlayerPing = new prometheus.Gauge({ name: 'fxs_max_player_ping', help: 'Maximum player ping.' });
+const minPlayerPing = new prometheus.Gauge({ name: `${prefix}min_player_ping`, help: 'Minimum player ping.' });
+const maxPlayerPing = new prometheus.Gauge({ name: `${prefix}max_player_ping`, help: 'Maximum player ping.' });
 
 setInterval(() => {
 	const numIndices = GetNumPlayerIndices();
